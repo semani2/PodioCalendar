@@ -9,4 +9,6 @@
     <string name="strHelloStranger">Hello! Welcome to Podio Calendar. Tap the button below to sign in.</string>
     <string name="strNoNetwork"><big>No network connection!</big>\nCheck your network connection and maybe try again later?</string>
     <string name="strSomethingWrong">Something went wrong!</string>
+    <string name="strUsername">Username</string>
+    <string name="strPassword">Password</string>
 </resources>

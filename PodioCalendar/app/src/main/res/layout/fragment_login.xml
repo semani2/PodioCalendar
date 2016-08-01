@@ -1,12 +1,90 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="development.sai.podiocalendar.fragments.LoginFragment">
+    tools:context="development.sai.podiocalendar.fragments.LoginFragment"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/ic_icon"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/appIcon"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:layout_below="@+id/appIcon"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/appNameTextView"/>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_caption"
+        android:layout_below="@+id/appNameTextView"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_below="@+id/appNameTextView">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/editTextBckGrnd"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/editTextHint"
+            android:hint="@string/strUsername"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/userNameEditText"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editTextBckGrnd"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/editTextHint"
+            android:hint="@string/strPassword"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/passwordEditText"
+            android:inputType="text|textPassword"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/strSignIn"
+            android:background="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            android:id="@+id/signInButton"
+            android:enabled="false"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
