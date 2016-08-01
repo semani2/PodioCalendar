@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Podio Calendar</string>
     <string name="action_settings">Settings</string>
+    <string name="app_caption">The best way to organize your day</string>
+    <string name="strHelloUser">Hello %1$s.You\'re already signed in to Podio and ready to start using your calendar</string>
+    <string name="strStartUsingCalendar">Start using Podio Calendar</string>
+    <string name="strSwitchUser">Switch user</string>
+    <string name="strSignIn">Sign in</string>
+    <string name="strHelloStranger">Hello! Welcome to Podio Calendar. Tap the button below to sign in.</string>
+    <string name="strNoNetwork"><big>No network connection!</big>\nCheck your network connection and maybe try again later?</string>
+    <string name="strSomethingWrong">Something went wrong!</string>
 </resources>
