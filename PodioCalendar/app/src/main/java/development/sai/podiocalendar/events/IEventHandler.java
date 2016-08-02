@@ -5,9 +5,13 @@ package development.sai.podiocalendar.events;
  */
 public interface IEventHandler {
 
-    public void onEvent(ProgressBarEvent event);
+    void onResume();
 
-    public void onEvent(FABEvent event);
+    void onPause();
 
-    public void onEvent(ShowFragmentEvent event);
+    void onDestroy();
+
+    void onEvent(ProgressBarEvent event);
+
+    void onEvent(ShowFragmentEvent event);
 }

@@ -11,4 +11,8 @@
     <string name="strSomethingWrong">Something went wrong!</string>
     <string name="strUsername">Username</string>
     <string name="strPassword">Password</string>
+    <string name="strToday">Today</string>
+    <string name="strThisWeek">This week</string>
+    <string name="strThisMonth">This month</string>
+    <string name="strThisYear">This year</string>
 </resources>

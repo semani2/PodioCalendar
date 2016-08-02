@@ -1,6 +1,6 @@
 package development.sai.podiocalendar.events;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by sai on 8/1/16.

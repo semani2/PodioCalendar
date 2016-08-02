@@ -9,8 +9,7 @@ import com.podio.sdk.Request;
 import com.podio.sdk.internal.Utils;
 
 import development.sai.podiocalendar.CalendarApplication;
-import development.sai.podiocalendar.MainActivity;
-import development.sai.podiocalendar.MainEventHandler;
+import development.sai.podiocalendar.sdk.GlobalRequestListener;
 import development.sai.podiocalendar.sdk.SuperPodio;
 
 /**
@@ -126,9 +125,9 @@ public class PodioAccountManager implements IAccountManager {
 
     @Override
     public void signOut() {
-        MainEventHandler mainEventHandler = MainEventHandler.getInstance((MainActivity) context);
+        GlobalRequestListener listener = GlobalRequestListener.getInstance(context);
         clearSession();
-        resetPodioSdk(context, mainEventHandler, mainEventHandler);
+        resetPodioSdk(context, listener, listener);
     }
 
     @Override

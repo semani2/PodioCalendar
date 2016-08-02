@@ -8,15 +8,17 @@ import org.greenrobot.eventbus.Subscribe;
 import development.sai.podiocalendar.events.IEventHandler;
 import development.sai.podiocalendar.events.ProgressBarEvent;
 import development.sai.podiocalendar.events.ShowFragmentEvent;
+import development.sai.podiocalendar.helpers.EntryFragmentHelper;
 
 /**
- * Created by sai on 8/1/16.
+ * Created by sai on 8/2/16.
  */
-public class MainEventHandler implements IEventHandler {
-    private HomeActivity activity;
+public class EntryEventHandler implements IEventHandler {
+
+    private EntryActivity activity;
     private boolean isPaused;
 
-    public MainEventHandler(HomeActivity activity) {
+    public EntryEventHandler(EntryActivity activity) {
         this.activity = activity;
 
         EventBus.getDefault().register(this);
@@ -39,13 +41,18 @@ public class MainEventHandler implements IEventHandler {
     @Override
     public void onEvent(ProgressBarEvent event) {
         if(!isPaused) {
-            activity.getProgressBar().setVisibility(event.showProgressBar ? View.VISIBLE : View.GONE);
+            if(event.showProgressBar) {
+                activity.getProgressBar().setVisibility(View.VISIBLE);
+            }
+            else {
+                activity.getProgressBar().setVisibility(View.GONE);
+            }
         }
     }
 
     @Subscribe
     @Override
     public void onEvent(ShowFragmentEvent event) {
-        // Nothing for now
+        new EntryFragmentHelper().showFragment(activity.getSupportFragmentManager(), event.fragment);
     }
 }
