@@ -14,4 +14,8 @@ public interface IEventHandler {
     void onEvent(ProgressBarEvent event);
 
     void onEvent(ShowFragmentEvent event);
+
+    void onEvent(ShowMessageEvent event);
+
+    void onEvent(LogoutEvent event);
 }

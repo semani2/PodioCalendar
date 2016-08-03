@@ -1,13 +1,16 @@
 package development.sai.podiocalendar;
 
 import android.view.View;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import development.sai.podiocalendar.events.IEventHandler;
+import development.sai.podiocalendar.events.LogoutEvent;
 import development.sai.podiocalendar.events.ProgressBarEvent;
 import development.sai.podiocalendar.events.ShowFragmentEvent;
+import development.sai.podiocalendar.events.ShowMessageEvent;
 import development.sai.podiocalendar.helpers.EntryFragmentHelper;
 
 /**
@@ -54,5 +57,17 @@ public class EntryEventHandler implements IEventHandler {
     @Override
     public void onEvent(ShowFragmentEvent event) {
         new EntryFragmentHelper().showFragment(activity.getSupportFragmentManager(), event.fragment);
+    }
+
+    @Subscribe
+    @Override
+    public void onEvent(ShowMessageEvent event) {
+        Toast.makeText(activity, event.message, Toast.LENGTH_LONG).show();
+    }
+
+    @Subscribe
+    @Override
+    public void onEvent(LogoutEvent event) {
+        // Technically should not be able to logout in entry activity
     }
 }

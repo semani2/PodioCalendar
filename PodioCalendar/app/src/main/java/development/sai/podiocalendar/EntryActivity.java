@@ -37,7 +37,12 @@ public class EntryActivity extends AppCompatActivity {
         accountManager.resetPodioSdk(this, listener, listener);
         Bundle loggedInData = accountManager.readPodioAccountInfo();
 
-        showSplashScreen(loggedInData);
+        if(accountManager.hasSession()) {
+            goHome();
+        }
+        else {
+            showSplashScreen(loggedInData);
+        }
     }
 
     @Override

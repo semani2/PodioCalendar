@@ -15,7 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
+import org.greenrobot.eventbus.EventBus;
+
 import development.sai.podiocalendar.events.IEventHandler;
+import development.sai.podiocalendar.events.LogoutEvent;
 import development.sai.podiocalendar.fragments.DailyEventsFragment;
 import development.sai.podiocalendar.fragments.WeeklyEventsFragment;
 
@@ -23,9 +26,10 @@ public class HomeActivity extends AppCompatActivity {
     private IEventHandler mainEventHandler;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private EventBus eventBus = EventBus.getDefault();
 
     public HomeActivity() {
-        mainEventHandler = new MainEventHandler(this);
+        mainEventHandler = new HomeEventhandler(this);
     }
 
     @Override
@@ -80,6 +84,11 @@ public class HomeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_logout) {
+            eventBus.post(new LogoutEvent(this));
             return true;
         }
 

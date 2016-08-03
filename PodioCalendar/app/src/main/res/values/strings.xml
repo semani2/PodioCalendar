@@ -15,4 +15,6 @@
     <string name="strThisWeek">This week</string>
     <string name="strThisMonth">This month</string>
     <string name="strThisYear">This year</string>
+    <string name="strTodayEvents">Today\'s events</string>
+    <string name="strLogout">Logout</string>
 </resources>
