@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
+import com.podio.sdk.ImageLoader;
+
 import development.sai.podiocalendar.account.IAccountManager;
 import development.sai.podiocalendar.account.PodioAccountManager;
 import development.sai.podiocalendar.events.IEventHandler;

@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
+import com.podio.sdk.ImageLoader;
+
 import org.greenrobot.eventbus.EventBus;
 
 import development.sai.podiocalendar.events.IEventHandler;
@@ -27,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private EventBus eventBus = EventBus.getDefault();
+    private ImageLoader imageLoader;
 
     public HomeActivity() {
         mainEventHandler = new HomeEventhandler(this);
@@ -54,6 +57,8 @@ public class HomeActivity extends AppCompatActivity {
         viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
 
+        imageLoader = new ImageLoader();
+        imageLoader.setup(this, null);
     }
 
     @Override
@@ -137,5 +142,9 @@ public class HomeActivity extends AppCompatActivity {
                     return getString(R.string.strToday);
             }
         }
+    }
+
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
 }

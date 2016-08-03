@@ -16,38 +16,23 @@ import development.sai.podiocalendar.R;
 /**
  * Created by sai on 8/3/16.
  */
-public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayEventsViewHolder> {
+public class DailyEventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
     private List<CalendarEvent> calendarEventList;
     private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-    public class DayEventsViewHolder extends RecyclerView.ViewHolder {
-        public TextView eventStartTime;
-        public TextView eventEndTime;
-        public TextView eventTitleTextView;
-        public TextView eventAppTextView;
-
-        public DayEventsViewHolder(View itemView) {
-            super(itemView);
-            eventStartTime = (TextView) itemView.findViewById(R.id.eventStartTimeTextView);
-            eventEndTime = (TextView) itemView.findViewById(R.id.eventEndTimeTextView);
-            eventTitleTextView = (TextView) itemView.findViewById(R.id.eventTitleTextView);
-            eventAppTextView = (TextView) itemView.findViewById(R.id.eventAppTextView);
-        }
-    }
-
-    public DayEventsAdapter(List<CalendarEvent> calendarEvents) {
+    public DailyEventsAdapter(List<CalendarEvent> calendarEvents) {
         this.calendarEventList = calendarEvents;
     }
 
     @Override
-    public DayEventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_list_row, parent, false);
 
-        return new DayEventsViewHolder(itemView);
+        return new EventsViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(DayEventsViewHolder holder, int position) {
+    public void onBindViewHolder(EventsViewHolder holder, int position) {
         CalendarEvent calendarEvent = calendarEventList.get(position);
         if(calendarEvent.hasStartTime()) {
             holder.eventStartTime.setText(timeFormat.format(calendarEvent.getStartDate()));

@@ -15,6 +15,11 @@
     <string name="strThisWeek">This week</string>
     <string name="strThisMonth">This month</string>
     <string name="strThisYear">This year</string>
-    <string name="strTodayEvents">Today\'s events</string>
     <string name="strLogout">Logout</string>
+    <string name="strYourDay">Your day</string>
+    <string name="strYourWeek">Your week</string>
+    <string name="strAgenda">Agenda</string>
+    <string name="strCreatedBy">Created by </string>
+    <string name="strDuration">Duration</string>
+    <string name="strLocation">Location</string>
 </resources>

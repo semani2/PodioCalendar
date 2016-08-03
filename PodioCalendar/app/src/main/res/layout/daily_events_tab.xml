@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/titleTextView"
-        android:text="@string/strTodayEvents"
+        android:text="@string/strYourDay"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.podio.sdk.Podio;
 import com.podio.sdk.Request;
 import com.podio.sdk.domain.CalendarEvent;
-import com.podio.sdk.provider.CalendarProvider;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +27,8 @@ import java.util.Date;
 import java.util.List;
 
 import development.sai.podiocalendar.R;
-import development.sai.podiocalendar.adapters.DayEventsAdapter;
+import development.sai.podiocalendar.adapters.DailyEventsAdapter;
+import development.sai.podiocalendar.adapters.RecyclerTouchListener;
 import development.sai.podiocalendar.events.ProgressBarEvent;
 import development.sai.podiocalendar.events.ShowMessageEvent;
 
@@ -41,7 +41,7 @@ public class DailyEventsFragment extends Fragment {
 
     private RecyclerView eventsRecyclerView;
 
-    private DayEventsAdapter dayEventsAdapter;
+    private DailyEventsAdapter dailyEventsAdapter;
 
     private List<CalendarEvent> calendarEventList = new ArrayList<>();
 
@@ -78,10 +78,10 @@ public class DailyEventsFragment extends Fragment {
 
                         calendarEventList = new ArrayList<>(Arrays.asList(content));
 
-                        dayEventsAdapter = new DayEventsAdapter(calendarEventList);
+                        dailyEventsAdapter = new DailyEventsAdapter(calendarEventList);
 
-                        eventsRecyclerView.setAdapter(dayEventsAdapter);
-                        dayEventsAdapter.notifyDataSetChanged();
+                        eventsRecyclerView.setAdapter(dailyEventsAdapter);
+                        dailyEventsAdapter.notifyDataSetChanged();
 
                         return false;
                     }
@@ -103,11 +103,11 @@ public class DailyEventsFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         eventsRecyclerView.setLayoutManager(mLayoutManager);
         eventsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        eventsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), eventsRecyclerView, new ClickListener() {
+        eventsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), eventsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 CalendarEvent calendarEvent = calendarEventList.get(position);
-                Toast.makeText(getContext(), calendarEvent.getTitle(), Toast.LENGTH_LONG).show();
+                showDetailsDialog(calendarEvent.getRefId());
             }
 
             @Override
@@ -117,52 +117,9 @@ public class DailyEventsFragment extends Fragment {
         }));
     }
 
-    public interface ClickListener {
-        void onClick(View view, int position);
-
-        void onLongClick(View view, int position);
-    }
-
-    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
-
-        private GestureDetector gestureDetector;
-        private ClickListener clickListener;
-
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
-            this.clickListener = clickListener;
-            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
-                    }
-                }
-            });
-        }
-
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-                clickListener.onClick(child, rv.getChildPosition(child));
-            }
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        }
-
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-        }
+    private void showDetailsDialog(Long itemId) {
+        EventDetailsFragment fragment = EventDetailsFragment.newInstance(itemId);
+        fragment.setShowsDialog(true);
+        fragment.show(getActivity().getSupportFragmentManager(), "Details");
     }
 }

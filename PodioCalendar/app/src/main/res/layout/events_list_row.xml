@@ -1,71 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="80dp"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:focusable="true"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:clickable="true">
-
-    <LinearLayout
-        android:layout_width="65dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:id="@+id/timeLayout"
-        android:gravity="center">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventStartTimeTextView"
-            android:textColor="#555555"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventEndTimeTextView"
-            android:textColor="#555555"
-            android:textStyle="normal"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:background="#aaaaaa"
-        android:id="@+id/separatorView"
-        android:layout_toEndOf="@+id/timeLayout" />
-
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
+        android:layout_height="120dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toEndOf="@+id/separatorView"
-        android:layout_marginStart="5dp"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
+        card_view:cardBackgroundColor="#F5F5F5"
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:paddingStart="2dp"
+        card_view:paddingEnd="2dp">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventTitleTextView"
-            android:textColor="#555555"
-            android:textSize="18sp"
-            android:text="Android podio Calendar v1.0"
-            android:minHeight="20dp"/>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/timeLayout"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eventStartTimeTextView"
+                    android:textColor="#555555"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="09:00"
+                    android:gravity="center_horizontal"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventAppTextView"
-            android:textColor="#777777"
-            android:textSize="15sp"
-            android:text="Releases"
-            android:minHeight="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eventEndTimeTextView"
+                    android:textColor="#555555"
+                    android:textStyle="normal"
+                    android:textSize="18sp"
+                    android:text="19:00"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#cccccc"
+                android:id="@+id/separatorView"
+                android:layout_toEndOf="@+id/timeLayout"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/separatorView"
+                android:layout_marginStart="5dp"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eventTitleTextView"
+                    android:textColor="#555555"
+                    android:textSize="18sp"
+                    android:text="Android podio Calendar v1.0"
+                    android:minHeight="20dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eventAppTextView"
+                    android:textColor="#777777"
+                    android:textSize="15sp"
+                    android:text="Releases"
+                    android:minHeight="20dp"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
