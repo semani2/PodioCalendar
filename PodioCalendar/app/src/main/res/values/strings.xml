@@ -19,7 +19,10 @@
     <string name="strYourDay">Your day</string>
     <string name="strYourWeek">Your week</string>
     <string name="strAgenda">Agenda</string>
-    <string name="strCreatedBy">Created by </string>
+    <string name="strDescription">Description</string>
+    <string name="strCreatedBy">Created by</string>
     <string name="strDuration">Duration</string>
     <string name="strLocation">Location</string>
+    <string name="strTime">Time</string>
+    <string name="strAppName">App:</string>
 </resources>

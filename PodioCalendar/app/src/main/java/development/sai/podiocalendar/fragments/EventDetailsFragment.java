@@ -2,6 +2,7 @@ package development.sai.podiocalendar.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.podio.sdk.domain.field.TextField;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
+
 import development.sai.podiocalendar.HomeActivity;
 import development.sai.podiocalendar.R;
 import development.sai.podiocalendar.events.ShowMessageEvent;
@@ -31,21 +34,15 @@ import development.sai.podiocalendar.widgets.LazyImageView;
  */
 public class EventDetailsFragment extends DialogFragment {
     private static final String ITEM_ID = "item_id";
-    private static final String APP_ID = "app_id";
-    private static final String TIME = "time";
-    private static final String AGENDA = "agenda";
-    private static final String LOCATION = "location";
 
     private TextView eventTitleTextView;
-    private TextView agendaTextView;
-    private TextView durationTextView;
     private TextView createdByTextView;
     private TextView appNameTextView;
-    private TextView locationTextView;
     private LazyImageView profileImageView;
-    private LinearLayout agendaLayout;
-    private LinearLayout durationLayout;
-    private LinearLayout locationLayout;
+    private LinearLayout contentLayout;
+    private LinearLayout createdByLayout;
+    private LinearLayout appNameLayout;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd, HH : mm");
 
     private ProgressBar progressBar;
 
@@ -73,15 +70,12 @@ public class EventDetailsFragment extends DialogFragment {
         View view =  inflater.inflate(R.layout.fragment_event_details, container, false);
 
         eventTitleTextView = (TextView) view.findViewById(R.id.eventTitleTextView);
-        agendaTextView = (TextView) view.findViewById(R.id.agendaTextView);
-        durationTextView = (TextView) view.findViewById(R.id.durationTextView);
         createdByTextView = (TextView) view.findViewById(R.id.createdByTextView);
         profileImageView = (LazyImageView) view.findViewById(R.id.profilePicImageView);
         appNameTextView = (TextView) view.findViewById(R.id.appNameTextView);
-        locationTextView = (TextView) view.findViewById(R.id.locationTextView);
-        agendaLayout = (LinearLayout) view.findViewById(R.id.agendaLayout);
-        locationLayout = (LinearLayout) view.findViewById(R.id.locationLayout);
-        durationLayout = (LinearLayout) view.findViewById(R.id.durationLayout);
+        contentLayout = (LinearLayout) view.findViewById(R.id.contentLayout);
+        createdByLayout = (LinearLayout) view.findViewById(R.id.createdByLayout);
+        appNameLayout = (LinearLayout) view.findViewById(R.id.appNameLayout);
         progressBar = (ProgressBar) view.findViewById(R.id.detailsProgressBar);
 
         return view;
@@ -103,43 +97,61 @@ public class EventDetailsFragment extends DialogFragment {
         Podio.item.get(itemId).withResultListener(new Request.ResultListener<Item>() {
             @Override
             public boolean onRequestPerformed(Item content) {
-                boolean showAgenda = false, showLocation = false, showDuration = false;
-
-                for(Field field: content.getFields()) {
-                    Log.d("FIELDS :",field.getLabel().toString());
-                    switch (field.getLabel().toLowerCase()) {
-                        case TIME:
-                            showDuration = true;
-                            break;
-                        case LOCATION:
-                            showLocation = true;
-                            break;
-                        case AGENDA:
-                            showAgenda = true;
-                            break;
-                    }
-                }
+                createdByLayout.setVisibility(View.VISIBLE);
+                appNameLayout.setVisibility(View.VISIBLE);
                 eventTitleTextView.setText(content.getTitle());
                 createdByTextView.setText(content.getCreatedBy().getName());
                 profileImageView.loadImage(((HomeActivity)getActivity()).getImageLoader(), ImageLoader.Size.AVATAR_LARGE, content.getCreatedBy().getImageUrl());
                 appNameTextView.setText(content.getApplication().getName());
 
-                if(showAgenda && content.getVerifiedValues("agenda") != null) {
-                    agendaLayout.setVisibility(View.VISIBLE);
-                    agendaTextView.setText(((TextField.Value)content.getVerifiedValue("agenda", 0)).getValue());
-                }
+                for(Field field : content.getFields()) {
+                    Log.d("FIELDS :",field.getLabel());
+                    if(field instanceof TextField || field instanceof DateField || field instanceof LocationField) {
+                        LinearLayout newField = new LinearLayout(getContext());
+                        TextView titleTextView = new TextView(getContext());
+                        TextView valueTextView = new TextView(getContext());
 
-                if(showDuration && content.getVerifiedValues("time") != null) {
-                    durationLayout.setVisibility(View.VISIBLE);
-                    durationTextView.setText(((DateField.Value)content.getVerifiedValue("time", 0)).getStartDateTime().toString() + " - " +
-                            ((DateField.Value)content.getVerifiedValue("time", 0)).getEndDateTime().toString());
-                }
+                        newField.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        newField.setOrientation(LinearLayout.VERTICAL);
 
-                if(showLocation && content.getVerifiedValues("location") != null) {
-                    locationLayout.setVisibility(View.VISIBLE);
-                    locationTextView.setText(((LocationField.Value)content.getVerifiedValue("location", 0)).getValue());
-                }
+                        titleTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        titleTextView.setTextAppearance(R.style.FieldTitleStyle);
+                        titleTextView.setText(field.getLabel());
 
+                        valueTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        valueTextView.setTextAppearance(R.style.FieldValueStyle);
+                        if(field instanceof TextField) {
+                            valueTextView.setText(Html.fromHtml(((TextField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getValue()));
+                        }
+                        else if(field instanceof DateField) {
+                            if(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getStartDateTime() != null &&
+                                    ((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getEndDateTime() != null) {
+                                String startDate = dateFormat.format(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getStartDateTime());
+                                String endDate = dateFormat.format(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getEndDateTime());
+                                valueTextView.setText(startDate + " - " + endDate);
+                            }
+                            else if(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getStartDateTime() != null) {
+                                String date = dateFormat.format(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getStartDateTime());
+                                valueTextView.setText(date);
+                            }
+                            else if(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getEndDateTime() != null) {
+                                String date = dateFormat.format(((DateField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getEndDateTime());
+                                valueTextView.setText(date);
+                            }
+                        }
+                        else if(field instanceof LocationField) {
+                            valueTextView.setText(((LocationField.Value) content.getVerifiedValue(field.getExternalId(), 0)).getValue());
+                        }
+
+                        newField.addView(titleTextView);
+                        newField.addView(valueTextView);
+                        contentLayout.addView(newField);
+                    }
+
+                }
                 showProgress(false);
                 return false;
             }

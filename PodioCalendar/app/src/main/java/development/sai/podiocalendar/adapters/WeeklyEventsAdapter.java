@@ -59,6 +59,7 @@ public class WeeklyEventsAdapter extends RecyclerView.Adapter {
             }
             else {
                 holder.eventStartTime.setText("All day");
+                holder.eventEndTime.setVisibility(View.GONE);
             }
 
             holder.eventTitleTextView.setText(calendarEvent.getTitle());
