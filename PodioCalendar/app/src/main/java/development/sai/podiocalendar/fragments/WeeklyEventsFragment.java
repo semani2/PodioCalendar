@@ -85,23 +85,25 @@ public class WeeklyEventsFragment extends Fragment {
                 .withResultListener(new Request.ResultListener<CalendarEvent[]>() {
                     @Override
                     public boolean onRequestPerformed(CalendarEvent[] content) {
-                        int currentDate = -1;
-                        listItems = new ArrayList<>();
+                        if(content.length > 0) {
+                            int currentDate = -1;
+                            listItems = new ArrayList<>();
 
-                        for(CalendarEvent calendarEvent: Arrays.asList(content)) {
-                            if(currentDate == -1 || (Integer.parseInt(dateFormat.format(calendarEvent.getStartDate())) != currentDate)) {
-                                listItems.add(new HeaderItem(calendarEvent.getStartDate()));
-                                currentDate = Integer.parseInt(dateFormat.format(calendarEvent.getStartDate()));
+                            for (CalendarEvent calendarEvent : Arrays.asList(content)) {
+                                if (currentDate == -1 || (Integer.parseInt(dateFormat.format(calendarEvent.getStartDate())) != currentDate)) {
+                                    listItems.add(new HeaderItem(calendarEvent.getStartDate()));
+                                    currentDate = Integer.parseInt(dateFormat.format(calendarEvent.getStartDate()));
+                                }
+                                listItems.add(new EventItem(calendarEvent));
                             }
-                            listItems.add(new EventItem(calendarEvent));
+
+                            weeklyEventsAdapter = new WeeklyEventsAdapter(listItems);
+
+                            eventsRecyclerView.setAdapter(weeklyEventsAdapter);
+                            weeklyEventsAdapter.notifyDataSetChanged();
+
+                            eventBus.post(new ProgressBarEvent(false));
                         }
-
-                        weeklyEventsAdapter = new WeeklyEventsAdapter(listItems);
-
-                        eventsRecyclerView.setAdapter(weeklyEventsAdapter);
-                        weeklyEventsAdapter.notifyDataSetChanged();
-
-                        eventBus.post(new ProgressBarEvent(false));
                         return false;
                     }
                 })

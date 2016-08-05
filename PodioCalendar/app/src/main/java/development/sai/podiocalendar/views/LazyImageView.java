@@ -1,4 +1,4 @@
-package development.sai.podiocalendar.widgets;
+package development.sai.podiocalendar.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;

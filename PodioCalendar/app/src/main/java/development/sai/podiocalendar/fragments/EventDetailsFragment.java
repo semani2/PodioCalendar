@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import development.sai.podiocalendar.HomeActivity;
 import development.sai.podiocalendar.R;
 import development.sai.podiocalendar.events.ShowMessageEvent;
-import development.sai.podiocalendar.widgets.LazyImageView;
+import development.sai.podiocalendar.views.LazyImageView;
 
 /**
  * Created by sai on 8/3/16.

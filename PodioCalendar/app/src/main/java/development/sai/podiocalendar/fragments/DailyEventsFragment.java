@@ -1,5 +1,7 @@
 package development.sai.podiocalendar.fragments;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +33,7 @@ import development.sai.podiocalendar.adapters.DailyEventsAdapter;
 import development.sai.podiocalendar.adapters.RecyclerTouchListener;
 import development.sai.podiocalendar.events.ProgressBarEvent;
 import development.sai.podiocalendar.events.ShowMessageEvent;
+import development.sai.podiocalendar.widget.DailyEventsWidgetProvider;
 
 /**
  * Created by sai on 8/2/16.
@@ -74,15 +77,20 @@ public class DailyEventsFragment extends Fragment {
                 .withResultListener(new Request.ResultListener<CalendarEvent[]>() {
                     @Override
                     public boolean onRequestPerformed(CalendarEvent[] content) {
-                        eventBus.post(new ProgressBarEvent(false));
+                        if(content.length > 0) {
+                            eventBus.post(new ProgressBarEvent(false));
 
-                        calendarEventList = new ArrayList<>(Arrays.asList(content));
+                            calendarEventList = new ArrayList<>(Arrays.asList(content));
 
-                        dailyEventsAdapter = new DailyEventsAdapter(calendarEventList);
+                            dailyEventsAdapter = new DailyEventsAdapter(calendarEventList);
 
-                        eventsRecyclerView.setAdapter(dailyEventsAdapter);
-                        dailyEventsAdapter.notifyDataSetChanged();
+                            eventsRecyclerView.setAdapter(dailyEventsAdapter);
+                            dailyEventsAdapter.notifyDataSetChanged();
+                        }
+                        AppWidgetManager widgetManager = AppWidgetManager.getInstance(getActivity());
+                        int[] ids = widgetManager.getAppWidgetIds(new ComponentName(getActivity(), DailyEventsWidgetProvider.class));
 
+                        widgetManager.notifyAppWidgetViewDataChanged(ids, R.id.eventListView);
                         return false;
                     }
                 })

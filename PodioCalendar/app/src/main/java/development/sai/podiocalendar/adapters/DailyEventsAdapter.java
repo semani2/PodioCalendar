@@ -43,6 +43,7 @@ public class DailyEventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
         }
         else {
             holder.eventStartTime.setText("All day");
+            holder.eventEndTime.setVisibility(View.GONE);
         }
 
         holder.eventTitleTextView.setText(calendarEvent.getTitle());

@@ -25,4 +25,5 @@
     <string name="strLocation">Location</string>
     <string name="strTime">Time</string>
     <string name="strAppName">App:</string>
+    <string name="strLoadingEvents">Loading today\'s events&#8230;</string>
 </resources>
