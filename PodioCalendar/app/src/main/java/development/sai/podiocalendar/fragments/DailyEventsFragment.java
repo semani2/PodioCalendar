@@ -32,6 +32,7 @@ import development.sai.podiocalendar.R;
 import development.sai.podiocalendar.adapters.DailyEventsAdapter;
 import development.sai.podiocalendar.adapters.RecyclerTouchListener;
 import development.sai.podiocalendar.events.ProgressBarEvent;
+import development.sai.podiocalendar.events.ShowEventDetailsEvent;
 import development.sai.podiocalendar.events.ShowMessageEvent;
 import development.sai.podiocalendar.widget.DailyEventsWidgetProvider;
 
@@ -126,8 +127,6 @@ public class DailyEventsFragment extends Fragment {
     }
 
     private void showDetailsDialog(Long itemId) {
-        EventDetailsFragment fragment = EventDetailsFragment.newInstance(itemId);
-        fragment.setShowsDialog(true);
-        fragment.show(getActivity().getSupportFragmentManager(), "Details");
+        eventBus.post(new ShowEventDetailsEvent(itemId));
     }
 }

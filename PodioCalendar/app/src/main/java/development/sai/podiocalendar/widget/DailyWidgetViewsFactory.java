@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import development.sai.podiocalendar.R;
@@ -48,6 +49,15 @@ public class DailyWidgetViewsFactory implements RemoteViewsService.RemoteViewsFa
             dailyEvents.clear();
             Date today = Calendar.getInstance().getTime();
             dailyEvents = new ArrayList<>(Arrays.asList(Podio.calendar.getGlobalCalendar(today, today, 1, false).waitForResult(15)));
+            Iterator<CalendarEvent> iterator = dailyEvents.iterator();
+            while(iterator.hasNext()) {
+                CalendarEvent event = iterator.next();
+                if(event.hasStartTime() && event.hasEndTime()) {
+                    if(event.getEndDate().before(new Date())) {
+                        iterator.remove();
+                    }
+                }
+            }
         }
     }
 
@@ -88,7 +98,7 @@ public class DailyWidgetViewsFactory implements RemoteViewsService.RemoteViewsFa
         data.putLong(DailyEventsWidgetProvider.ITEM_ID, calendarEvent.getRefId());
         fillInIntent.putExtras(data);
 
-        remoteViews.setOnClickFillInIntent(R.id.widgetContentLayout, fillInIntent);
+        remoteViews.setOnClickFillInIntent(R.id.widgetTitleTextView, fillInIntent);
 
         return remoteViews;
     }

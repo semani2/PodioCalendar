@@ -21,8 +21,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import development.sai.podiocalendar.events.IEventHandler;
 import development.sai.podiocalendar.events.LogoutEvent;
+import development.sai.podiocalendar.events.ShowEventDetailsEvent;
 import development.sai.podiocalendar.fragments.DailyEventsFragment;
 import development.sai.podiocalendar.fragments.WeeklyEventsFragment;
+import development.sai.podiocalendar.widget.DailyEventsWidgetProvider;
 
 public class HomeActivity extends AppCompatActivity {
     private IEventHandler mainEventHandler;
@@ -42,15 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.pager);
 
@@ -65,6 +58,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mainEventHandler.onResume();
+
+        Bundle data = getIntent().getExtras();
+        if(data != null && data.containsKey(DailyEventsWidgetProvider.ITEM_ID)) {
+            eventBus.post(new ShowEventDetailsEvent(data.getLong(DailyEventsWidgetProvider.ITEM_ID)));
+        }
     }
 
     @Override
@@ -86,11 +84,6 @@ public class HomeActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if (id == R.id.action_logout) {
             eventBus.post(new LogoutEvent(this));

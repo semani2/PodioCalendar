@@ -35,6 +35,7 @@ import development.sai.podiocalendar.adapters.ListItem;
 import development.sai.podiocalendar.adapters.RecyclerTouchListener;
 import development.sai.podiocalendar.adapters.WeeklyEventsAdapter;
 import development.sai.podiocalendar.events.ProgressBarEvent;
+import development.sai.podiocalendar.events.ShowEventDetailsEvent;
 import development.sai.podiocalendar.events.ShowMessageEvent;
 
 /**
@@ -144,8 +145,6 @@ public class WeeklyEventsFragment extends Fragment {
     }
 
     private void showDetailsDialog(Long itemId) {
-        EventDetailsFragment fragment = EventDetailsFragment.newInstance(itemId);
-        fragment.setShowsDialog(true);
-        fragment.show(getActivity().getSupportFragmentManager(), "Details");
+        eventBus.post(new ShowEventDetailsEvent(itemId));
     }
 }

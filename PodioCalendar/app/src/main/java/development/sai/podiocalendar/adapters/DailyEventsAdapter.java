@@ -34,6 +34,7 @@ public class DailyEventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
     @Override
     public void onBindViewHolder(EventsViewHolder holder, int position) {
         CalendarEvent calendarEvent = calendarEventList.get(position);
+        holder.eventEndTime.setVisibility(View.VISIBLE);
         if(calendarEvent.hasStartTime()) {
             holder.eventStartTime.setText(timeFormat.format(calendarEvent.getStartDate()));
 

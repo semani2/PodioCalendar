@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import development.sai.podiocalendar.events.IEventHandler;
 import development.sai.podiocalendar.events.LogoutEvent;
 import development.sai.podiocalendar.events.ProgressBarEvent;
+import development.sai.podiocalendar.events.ShowEventDetailsEvent;
 import development.sai.podiocalendar.events.ShowFragmentEvent;
 import development.sai.podiocalendar.events.ShowMessageEvent;
 import development.sai.podiocalendar.helpers.EntryFragmentHelper;
@@ -69,5 +70,11 @@ public class EntryEventHandler implements IEventHandler {
     @Override
     public void onEvent(LogoutEvent event) {
         // Technically should not be able to logout in entry activity
+    }
+
+    @Subscribe
+    @Override
+    public void onEvent(ShowEventDetailsEvent event) {
+        //Nothing to do here
     }
 }

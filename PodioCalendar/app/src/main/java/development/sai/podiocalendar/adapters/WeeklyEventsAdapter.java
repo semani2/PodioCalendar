@@ -50,6 +50,7 @@ public class WeeklyEventsAdapter extends RecyclerView.Adapter {
         else {
             CalendarEvent calendarEvent = ((EventItem)eventItemList.get(position)).getCalendarEvent();
             EventsViewHolder holder = (EventsViewHolder) viewHolder;
+            holder.eventEndTime.setVisibility(View.VISIBLE);
             if(calendarEvent.hasStartTime()) {
                 holder.eventStartTime.setText(timeFormat.format(calendarEvent.getStartDate()));
 

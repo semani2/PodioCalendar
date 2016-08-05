@@ -18,4 +18,6 @@ public interface IEventHandler {
     void onEvent(ShowMessageEvent event);
 
     void onEvent(LogoutEvent event);
+
+    void onEvent(ShowEventDetailsEvent event);
 }

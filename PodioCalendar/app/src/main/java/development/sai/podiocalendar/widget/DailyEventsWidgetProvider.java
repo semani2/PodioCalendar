@@ -6,11 +6,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import development.sai.podiocalendar.HomeActivity;
 import development.sai.podiocalendar.R;
 
 /**
@@ -23,6 +25,19 @@ public class DailyEventsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if(intent.getAction().equalsIgnoreCase(SHOW_EVENT_ACTION)) {
+            Long itemId = intent.getExtras().getLong(ITEM_ID);
+
+            Intent toHome = new Intent(context, HomeActivity.class);
+            Bundle data = new Bundle();
+            data.putLong(ITEM_ID, itemId);
+            toHome.putExtras(data);
+
+            toHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            toHome.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(toHome);
+            return;
+        }
         super.onReceive(context, intent);
     }
 
@@ -39,7 +54,7 @@ public class DailyEventsWidgetProvider extends AppWidgetProvider {
             rv.setRemoteAdapter(appWidgetId, R.id.eventListView, intent);
             rv.setTextViewText(R.id.widgetDateTextView, dateFormat.format(new Date()));
 
-            /*Intent toastIntent = new Intent(context, DailyEventsWidgetProvider.class);
+            Intent toastIntent = new Intent(context, DailyEventsWidgetProvider.class);
 
             toastIntent.setAction(SHOW_EVENT_ACTION);
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -48,7 +63,7 @@ public class DailyEventsWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0 ,
                     toastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            rv.setPendingIntentTemplate(R.id.eventListView, pendingIntent);*/
+            rv.setPendingIntentTemplate(R.id.eventListView, pendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }

@@ -2,6 +2,8 @@ package development.sai.podiocalendar;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
@@ -12,8 +14,10 @@ import development.sai.podiocalendar.account.PodioAccountManager;
 import development.sai.podiocalendar.events.IEventHandler;
 import development.sai.podiocalendar.events.LogoutEvent;
 import development.sai.podiocalendar.events.ProgressBarEvent;
+import development.sai.podiocalendar.events.ShowEventDetailsEvent;
 import development.sai.podiocalendar.events.ShowFragmentEvent;
 import development.sai.podiocalendar.events.ShowMessageEvent;
+import development.sai.podiocalendar.fragments.EventDetailsFragment;
 
 /**
  * Created by sai on 8/1/16.
@@ -21,6 +25,7 @@ import development.sai.podiocalendar.events.ShowMessageEvent;
 public class HomeEventhandler implements IEventHandler {
     private HomeActivity activity;
     private boolean isPaused;
+    private static final String DIALOG = "dialog";
 
     public HomeEventhandler(HomeActivity activity) {
         this.activity = activity;
@@ -72,5 +77,23 @@ public class HomeEventhandler implements IEventHandler {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         event.context.startActivity(intent);
+    }
+
+    @Subscribe
+    @Override
+    public void onEvent(ShowEventDetailsEvent event) {
+        dismissAllDialogs();
+        EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.itemId);
+        fragment.setShowsDialog(true);
+        fragment.show(activity.getSupportFragmentManager(), DIALOG);
+    }
+
+    private void dismissAllDialogs() {
+        if(isPaused) return;
+
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentByTag(DIALOG);
+        if(fragment != null && fragment instanceof DialogFragment) {
+            ((DialogFragment) fragment).dismissAllowingStateLoss();
+        }
     }
 }

@@ -29,9 +29,9 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name="development.sai.podiocalendar.widget.DailyEventsWidgetProvider" >
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="development.sai.podiocalendar.widget.SHOW_EVENT_ACTION" />
-            </intent-filter>-->
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

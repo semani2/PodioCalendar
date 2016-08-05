@@ -26,7 +26,10 @@ import java.text.SimpleDateFormat;
 
 import development.sai.podiocalendar.HomeActivity;
 import development.sai.podiocalendar.R;
+import development.sai.podiocalendar.account.IAccountManager;
+import development.sai.podiocalendar.account.PodioAccountManager;
 import development.sai.podiocalendar.events.ShowMessageEvent;
+import development.sai.podiocalendar.sdk.GlobalRequestListener;
 import development.sai.podiocalendar.views.LazyImageView;
 
 /**
@@ -62,6 +65,10 @@ public class EventDetailsFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, 0);
+
+        GlobalRequestListener listener = GlobalRequestListener.getInstance(getActivity());
+        IAccountManager accountManager = PodioAccountManager.getInstance(getActivity());
+        accountManager.resetPodioSdk(getActivity(), listener, listener);
     }
 
     @Override
