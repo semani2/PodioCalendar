@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Podio Calendar</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_caption">The best way to organize your day</string>
+    <string name="strHelloUser">Hello %1$s.You\'re already signed in to Podio and ready to start using your calendar</string>
+    <string name="strStartUsingCalendar">Start using Podio Calendar</string>
+    <string name="strSwitchUser">Switch user</string>
+    <string name="strSignIn">Sign in</string>
+    <string name="strHelloStranger">Hello! Welcome to Podio Calendar. Tap the button below to sign in.</string>
+    <string name="strNoNetwork"><big>No network connection!</big>\nCheck your network connection and maybe try again later?</string>
+    <string name="strSomethingWrong">Something went wrong!</string>
+    <string name="strUsername">Username</string>
+    <string name="strPassword">Password</string>
+    <string name="strToday">Today</string>
+    <string name="strThisWeek">This week</string>
+    <string name="strThisMonth">This month</string>
+    <string name="strThisYear">This year</string>
+    <string name="strLogout">Logout</string>
+    <string name="strYourDay">Your day</string>
+    <string name="strYourWeek">Your week</string>
+    <string name="strAgenda">Agenda</string>
+    <string name="strDescription">Description</string>
+    <string name="strCreatedBy">Created by</string>
+    <string name="strDuration">Duration</string>
+    <string name="strLocation">Location</string>
+    <string name="strTime">Time</string>
+    <string name="strAppName">App:</string>
+    <string name="strLoadingEvents">Loading today\'s events&#8230;</string>
+</resources>

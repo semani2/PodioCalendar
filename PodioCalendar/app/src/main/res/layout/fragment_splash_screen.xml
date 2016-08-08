@@ -1,0 +1,139 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="development.sai.podiocalendar.fragments.SplashScreenFragment"
+    android:background="@drawable/loginimage">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/appNameLayout"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_icon"
+            android:gravity="center_horizontal"
+            android:id="@+id/appIcon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#555555"
+            android:foregroundGravity="center_vertical"
+            android:id="@+id/appNameTextView"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/appIcon"
+            android:layout_marginLeft="20dp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_caption"
+        android:layout_below="@+id/appNameLayout"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="#777777"
+        android:id="@+id/appCaption"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_below="@+id/appCaption">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/editTextBckGrnd"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/editTextHint"
+            android:hint="@string/strUsername"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/userNameEditText"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/editTextBckGrnd"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/editTextHint"
+            android:hint="@string/strPassword"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/passwordEditText"
+            android:inputType="text|textPassword"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/strSignIn"
+            android:background="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            android:id="@+id/signInButton"
+            android:enabled="false"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:id="@+id/splashFooter"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/splashScreenTextView"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/strStartUsingCalendar"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                android:id="@+id/startUsingCalendarButton"
+                android:visibility="visible"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

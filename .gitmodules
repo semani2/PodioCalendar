@@ -1,0 +1,3 @@
+[submodule "PodioCalendar/podio-android-sdk"]
+	path = PodioCalendar/podio-android-sdk
+	url = https://github.com/semani2/podio-android.git
